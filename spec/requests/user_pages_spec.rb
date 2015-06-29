@@ -18,6 +18,9 @@ describe "User pages" do
 
     let(:submit) { "Create my account" }
 
+    it { should have_content('Sign up') }
+    it { should have_title(full_title('Sign up')) }
+
     describe "with invalid information" do
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
@@ -48,13 +51,10 @@ describe "User pages" do
 
         before { click_button submit }
 
+        it { should have_link('Sign out') }
         it { should have_title(user.name) }
         it { should have_selector('div.alert.alert-success', 'Welcome') }
       end
     end
-
-    it { should have_content('Sign up') }
-    it { should have_title(full_title('Sign up')) }
   end
-
 end
