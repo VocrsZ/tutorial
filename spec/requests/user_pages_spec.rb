@@ -113,6 +113,21 @@ describe "User pages" do
         it { should have_selector('div.alert.alert-success', 'Welcome') }
       end
     end
+
+    describe "delete links only for page owner" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:other_user) { FactoryGirl.create(:user, email: "other_user@mail.ru") }
+      let(:micropost) { FactoryGirl.create(:micropost, user: other_user, content: "Hello world") }
+
+      before do
+        sign_in user
+        visit user_path(other_user)
+      end
+
+      it "should have not links to delete posts from other profile" do
+        expect(page).not_to have_link('delete', micropost_path(micropost))
+      end
+    end
   end
 
   describe "edit" do

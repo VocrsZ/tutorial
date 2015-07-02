@@ -33,6 +33,28 @@ describe "Static pages" do
         end
       end
     end
+
+    describe "with right pluralization of posts count" do      
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+        sign_in user
+        visit root_path
+      end
+
+      it "should have right single plural" do
+        expect(page).to have_content('1 micropost')
+      end
+
+      describe "with right plural with two posts" do
+        before do
+          FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+          visit root_path
+        end
+
+        it { should have_content("2 microposts") }
+      end
+    end
   end
 
   describe "Help page" do
