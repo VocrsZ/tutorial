@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
 
+  NICKNAME_REGEX = /\A[^@;,\s\\а-яА-Я]+\z/
+  validates :nickname, presence: true, length: { minimun: 2, maximum: 50 },
+            uniqueness: { case_sensetive: false }, format: { with: NICKNAME_REGEX }
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end

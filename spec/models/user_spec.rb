@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  before { @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar") }
+  before { @user = User.new(name: "Example User", nickname: "user", email: "user@example.com", password: "foobar", password_confirmation: "foobar") }
 
   subject { @user }
 
@@ -20,6 +20,7 @@ describe User do
   it { should respond_to(:followed_users) }
   it { should respond_to(:reverse_relationships) }
   it { should respond_to(:followers) }
+  it { should respond_to(:nickname) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -44,6 +45,32 @@ describe User do
   describe "when name is not present" do 
     before { @user.name = " " }
     it { should_not be_valid }
+  end
+
+  describe "when nickname" do
+    context "is not present" do
+      before { @user.nickname = ' ' }
+      it { should_not be_valid }
+    end
+    describe "is incorrect format" do
+      it "should be invalid" do
+        nicknames = %w[Никита asdваф hello@hello.ru hell.,:e ]
+        nicknames.each do |invalid_nick|
+          @user.nickname = invalid_nick
+          expect(@user).not_to be_valid
+        end
+      end
+
+    end
+    describe "is correct format" do
+      it "should be valid" do
+        nicknames = %w[nikita vocRsz hello.world bY.bY]
+        nicknames.each do |valid_nick|
+          @user.nickname = valid_nick
+          expect(@user).to be_valid
+        end
+      end
+    end
   end
 
   describe "when email is not present" do
