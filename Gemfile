@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.3.1'
 #ruby-gemset=rails421
 
 
 gem 'rails', '4.2.1' 
 gem 'pg', '0.15.1'
+gem 'indocker'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.8'
   gem 'rspec-rails', '3.3.2'
   gem 'rspec-its'
   gem 'spring'
