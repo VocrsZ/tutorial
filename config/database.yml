@@ -1,8 +1,16 @@
-development:
-  hostname: tutorial_postgres
-  adapter: postgresql
+default: &default
+  adapter:  postgresql
   encoding: unicode
-  database: tutorial
-  pool: 5
-  username: tutorial
-  password: tutorial
+  host:     tutorial_postgres
+  username: postgres
+  password: 
+  pool:     5
+
+development:
+  <<: *default
+  database: myapp_development
+
+
+test:
+  <<: *default
+  database: myapp_test
