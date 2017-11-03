@@ -1,0 +1,8 @@
+development:
+  hostname: tutorial_network
+  adapter: postgresql
+  encoding: unicode
+  database: tutorial
+  pool: 5
+  username: tutorial
+  password: tutorial
